@@ -30,6 +30,14 @@ This is empty on purpose! Your code to build the resume will go here.
 // $("#main").append(work["position"]);
 // $("#main").append(education.name);
 
+$(document).click(function(loc){
+	var x = loc.pageX;
+	var y = loc.pageY;
+	logClicks(x,y);
+});
+
+
+
 var work = {
 	"jobs" : [
 		{
@@ -60,7 +68,7 @@ function displayWork(){
 		$(".work-entry:last").append(formattedEmployerTitle);
 	}
 }
-
+displayWork();
 
 
 
