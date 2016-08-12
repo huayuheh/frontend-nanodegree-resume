@@ -38,6 +38,7 @@ $(document).click(function(loc){
 
 
 
+
 var work = {
 	"jobs" : [
 		{
@@ -123,6 +124,17 @@ if (bio.skills.length > 0) {
 	$("#skills").append(formattedSkill);
 
 }
+
+function inName(name){
+	name = name.split(" ");
+	console.log(name);
+
+	name[1] = name[1].toUpperCase();
+	return name[0] + " " + name[1];
+};
+
+$("#main").append(internationalizeButton);
+
 
 var education = {
 	"school" : [
