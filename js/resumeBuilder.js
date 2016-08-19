@@ -1,40 +1,64 @@
-/*
-This is empty on purpose! Your code to build the resume will go here.
- */
 
-//  var awesomeThoughts = "I am Huayu and I am AWESOME!";
-//  console.log(awesomeThoughts);
-//  var funThoughts = awesomeThoughts.replace("AWESOME", "FUN");
-//  console.log(funThoughts);
-//  $("#main").append(funThoughts);
-// var name = "Huayu Heh"
-// var role = "Front-End Developer"
-
-
-
-// var skill = ["UI design","UX design","JS","drawing"];
-// console.log(skill.length);
-
-
-// var work ={ };
-// 	work.position = "UI Designer";
-// 	work.employer = "JYreading";
-// 	work.year = 0.3;
-
-// var education = {};
-// 	education["name"] = "Acadamy of Art University";
-// 	education["year"] = "2015-2017";
-// 	education["city"] = "San Francisco, CA, US";
+var bio = {
+	"name" : "Huayu Heh",
+	"role" : "Front-End Developer",
+	"welcomeMassage" : "Welcome to see my resume",
+	"biopic" : "images/self_portrait.jpg",
+	"contain" : {
+		"mobile" : "415-999-0504",
+		"email" : "huayuheh@gmail.com",
+		"github" : "huayuheh",
+		"website" : "huayuheh.com",
+		"location" : "San Francisco"
+	},
+	"skills" : [
+		"UI design","UX design", "JS"
+	],
+	"header" : {},
+	"contacts" : {},
+	"skills" : {}
+};
 
 
-// $("#main").append(work["position"]);
-// $("#main").append(education.name);
+bio.header.display = function(){
+	// headline
+	var formattedName = HTMLheaderName.replace("%data%", bio.name);
+	var formattedRole = HTMLheaderRole.replace("%data%",bio.role);
+	$("#header").prepend(formattedName, formattedRole);
 
-$(document).click(function(loc){
-	var x = loc.pageX;
-	var y = loc.pageY;
-	logClicks(x,y);
-});
+	// Contacts
+	var formattedMobile = HTMLmobile.replace("%data%",bio.contain.mobile);
+
+	var linkEmail = '<a class="link" href="mailto:' + bio.contain.email+'">';
+	var formattedEmail = HTMLemail.replace("%data%",linkEmail + bio.contain.email + '</a>');
+
+	var linkGithub = "<a class='link' href='http://github.com/" + bio.contain.github + "' target='blank'>";
+	var formattedGithub =HTMLgithub.replace("%data%",linkGithub + bio.contain.github + "</a>");
+
+	var linkWebsite = "<a class='link' href='http://" + bio.contain.website + "' target='blank'>";
+	var formattedWebsite = HTMLwebsite.replace("%data%",linkWebsite + bio.contain.website + "</a>");
+
+	var formattedLocation = HTMLlocation.replace("%data%",bio.contain.location);
+
+	$("#topContacts").append(formattedMobile, formattedEmail, formattedGithub, formattedWebsite, formattedLocation);
+
+	// Picture and Welcome Msg
+	var formattedPic = HTMLbioPic.replace("%data%",bio.biopic);
+	var formattedWelcomeMsg = HTMLwelcomeMsg.replace("%data%",bio.welcomeMassage);
+	$("#header").append(formattedPic, formattedWelcomeMsg);
+
+	//Skill
+
+};
+
+bio.header.display();
+
+
+
+// $(document).click(function(loc){
+
+// 	console.log(loc.pageX, loc.pageY)
+// });
 
 
 
@@ -60,7 +84,7 @@ function displayWork(){
 	for (job in work.jobs){
 		$("#workExperience").append(HTMLworkStart);
 		var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
-		var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);	
+		var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
 		var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
 		var formattedDate = HTMLworkDates.replace("%data%", work.jobs[job].dates);
 		var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
@@ -75,43 +99,37 @@ displayWork();
 
 
 
-var projects = {
-	"projects" : [
-		{
-			"title" : "Billbo",
-			"dates" : "2015",
-			"description" : "fdsfsff sfsdfs",
-			"images": [
-				"images/"
+var projects = {"projects":
+      [{"title": "First Web Page",
+      "dates": "May 18th",
+      "description": "Web Page created using code for first time"},
+      {"title": "My Quiz",
+      "dates": "June 29th",
+      "description": "Disney quiz with Python"}]
+  };
 
-			]
-		}
+projects.display = function() {
+	$("#projects").append(HTMLprojectStart);
+  for (project in projects.projects) {
 
-	]
-};
 
-var bio = {
-	"name" : "Huayu Heh",
-	"role" : "Front-End Developer",
-	"welcomeMassage" : "Welcome to see my resume",
-	"biopic" : "",
-	"contain" : {
-		"mobile" : "415-999-0504",
-		"email" : "huayuheh@gmail.com",
-		"github" : "",
-		"location" : "San Francisco"
-	},
-	"skills" : [
-		"UI design","UX design", "JS"
-	]
-};
+    var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
+    $(".project-entry:last").append(formattedTitle);
 
-var formattedName = HTMLheaderName.replace("%data%", bio.name);
-var formattedRole = HTMLheaderRole.replace("%data%",bio.role);
-var formattedMobile = HTMLmobile.replace("%data%",bio.contain.mobile);
+    var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
+    $(".project-entry:last").append(formattedDates);
 
-$("#header").prepend(formattedName, formattedRole);
-$("#header").append(formattedMobile);
+    var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
+    $(".project-entry:last").append(formattedDescription);
+
+
+  }
+}
+projects.display();
+
+
+
+
 
 
 if (bio.skills.length > 0) {
@@ -165,5 +183,5 @@ var education = {
 }
 
 
-
+$("#mapDiv").append(googleMap);
 
